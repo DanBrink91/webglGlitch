@@ -17,13 +17,11 @@
   	uniform sampler2D img;
   	uniform float time;
   	varying vec2 pos;
+
   	void main() {
-  		vec4 color = texture2D(img, pos);
-  		float random_metric = mod(time, 2.0);
-  		
-  		if(random_metric <= 1.0) {
-  			color.r = color.b;	
-  		}
+  		// offset which y pixel to pick
+  		float yoffset =  0.05 *cos(time*pos.y);
+  		vec4 color = texture2D(img, vec2(pos.x, pos.y + yoffset));
   		gl_FragColor = color;
   	}
   </script>
