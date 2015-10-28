@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+  <script id="vertexShader" type="x-shader/x-vertex">
+  	varying vec2 pos;
+  	void main() {
+  		pos = uv;
+  		vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+		gl_Position = projectionMatrix * mvPosition;
+  	}
+  </script>
+  <script id="fragmentShader" type="x-shader/x-fragment">
+  	uniform sampler2D img;
+  	uniform float time;
+  	varying vec2 pos;
+  	void main() {
+  		vec4 color = texture2D(img, pos);
+  		float random_metric = mod(time, 2.0);
+  		
+  		if(random_metric <= 1.0) {
+  			color.r = color.b;	
+  		}
+  		gl_FragColor = color;
+  	}
+  </script>
+  <script type="text/javascript" src="three.min.js"></script>
+  <script type="text/javascript" src="pixel.js"></script>
+  </body>
+</html>
